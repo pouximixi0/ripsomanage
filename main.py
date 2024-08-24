@@ -78,13 +78,13 @@ class main:
         frameWidth2 = getFrameWidth(frame1) + 20
         frame2.place_configure(x=frameWidth2, y=10)
         def infoWindow():
-            window = ctk.CTk()
-            window.title("System Information")
-            window.geometry("400x300")
-            window.resizable(False, False)
-            label = ctk.CTkLabel(window, text=system_info_str, font=ctk.CTkFont(size=15)).pack(padx=20, pady=20)
-            window.mainloop()
-        buttonInfo = ctk.CTkButton(frame, text="Info", command=lambda: infoWindow).pack(side="bottom", anchor="e", padx=10, pady=10)
+            window1 = ctk.CTk()
+            window1.title("System Information")
+            window1.geometry("400x300")
+            window1.resizable(False, False)
+            label = ctk.CTkLabel(window1, text=system_info_str, font=ctk.CTkFont(size=15)).pack(padx=10, pady=10)
+            window1.mainloop()
+        buttonInfo = ctk.CTkButton(frame, text="Info", command=infoWindow).pack(side="bottom", anchor="e", padx=10, pady=10)
         return frame
 
     #optimize
