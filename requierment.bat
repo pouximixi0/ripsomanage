@@ -8,7 +8,7 @@ echo | '__| | '_ \/ __|/ _ \| '_ ` _ \ / _` | '_ \ / _` |/ _` |/ _ \
 echo | |  | | |_) \__ \ (_) | | | | | | (_| | | | | (_| | (_| |  __/
 echo |_|  |_| .__/|___/\___/|_| |_| |_|\__,_|_| |_|\__,_|\__, |\___|
 echo        |_|                                          |___/      
-echo vous était sur le point d'installer les dépendence devlopeur de ripsomanage v1.0 python
+echo Vous êtes sur le point d'installer les dépendances développeur de ripsomanage v1.0 Python
 pause
 
 cls
@@ -21,5 +21,5 @@ pip install GPUtil
 pip install py-cpuinfo
 pip install Nuitka
 
-echo tous a était instaler et mis a jour
+echo Tous les paquets ont été installés et mis à jour.
 pause
