@@ -1,7 +1,6 @@
 @echo off
 color a
 cls
-pause
 @echo off
 color a
 cls
