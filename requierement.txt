@@ -1,6 +1,0 @@
-customtkinter
-CTkMessagebox
-psutil
-GPUtil
-py-cpuinfo
-Nuitka
