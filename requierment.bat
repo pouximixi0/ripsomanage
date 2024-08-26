@@ -1,6 +1,25 @@
 @echo off
 color a
+cls
+
+echo       _                                                        
+echo  _ __(_)_ __  ___  ___  _ __ ___   __ _ _ __   __ _  __ _  ___ 
+echo | '__| | '_ \/ __|/ _ \| '_ ` _ \ / _` | '_ \ / _` |/ _` |/ _ \
+echo | |  | | |_) \__ \ (_) | | | | | | (_| | | | | (_| | (_| |  __/
+echo |_|  |_| .__/|___/\___/|_| |_| |_|\__,_|_| |_|\__,_|\__, |\___|
+echo        |_|                                          |___/      
+echo vous était sur le point d'installer les dépendence devlopeur de ripsomanage v1.0 python
+pause
+
+cls
 python -m pip install --upgrade pip
-pip install --upgrade -r requirements.txt
+
+pip install customtkinter
+pip install CTkMessagebox
+pip install psutil
+pip install GPUtil
+pip install py-cpuinfo
+pip install Nuitka
+
 echo tous a était instaler et mis a jour
 pause
