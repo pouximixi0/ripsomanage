@@ -1,15 +1,18 @@
-import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
+from threading import Thread
+import customtkinter as ctk
+from io import BytesIO
+from PIL import Image
+import subprocess 
 import platform
+import requests
+import tkinter
+import cpuinfo
 import psutil
 import GPUtil
-import subprocess 
-import cpuinfo
+import time
 import os
-import subprocess
-
-
-
+#import distutils
 
 class SystemInformation:
     def __init__(self):
@@ -228,7 +231,7 @@ class main:
             if msg.get() == "No":
                 pass
             elif msg.get() == "Yes":
-                msg = CTkMessagebox(title="Execute script", message=f"this is a script that removes unnecessary applications and services from Windows 11 to improve system performance.\n\nDo you want continue to execute this program?", icon="warning", option_1="Yes", option_2="No")
+                msg = CTkMessagebox(title="Execute script", message=f"this is a script that removes unnecessary applications and services from Windows 11 to improve system performance.\n\nwe are not responsible for any damage\n\nDo you want continue to execute this program?", icon="warning", option_1="Yes", option_2="No")
                 if msg.get() == "No":
                     pass
                 if msg.get() == "Yes":
@@ -242,8 +245,74 @@ class main:
     #software
     def create_software_frame(self):
         frame = ctk.CTkFrame(self.window, corner_radius=10)
-        label = ctk.CTkLabel(frame, text="Page des logiciels", font=ctk.CTkFont(size=15))
-        label.pack(padx=20, pady=20)
+
+
+        def manage_download_process(url, filename, progress_bar, status_label, app):
+            def download_file():
+                response = requests.get(url, stream=True)
+                total_size = int(response.headers.get('content-length', 0))
+                block_size = 262144  # 256 Kibibyte
+                downloaded_size = 0
+                start_time = time.time()
+
+                with open(filename, 'wb') as file:
+                    for data in response.iter_content(block_size):
+                        file.write(data)
+                        downloaded_size += len(data)
+                        elapsed_time = time.time() - start_time
+                        speed = downloaded_size / elapsed_time if elapsed_time > 0 else 0
+                        progress_bar.set(downloaded_size / total_size)
+                        status_label.configure(
+                            text=f"Téléchargé: {downloaded_size / 1024:.2f} KB / {total_size / 1024:.2f} KB\nVitesse: {speed / 1024:.2f} KB/s"
+                        )
+                        app.update_idletasks()
+
+                os.system(f'start {filename}')
+
+                time.sleep(1)
+
+                progress_bar.set(0)
+                status_label.configure(text="Suppression du fichier...")
+                app.update_idletasks()
+
+                while True:
+                    try:
+                        os.remove(filename)
+                        status_label.configure(text="Fichier supprimé")
+                        app.update_idletasks()
+                        break
+                    except PermissionError:
+                        status_label.configure(text="Le fichier est toujours en cours d'utilisation...")
+                        app.update_idletasks()
+                        time.sleep(1)
+            download_file()
+
+        def FrameAndButtonImgPlacer(master, url, px, py, function):
+            response = requests.get(url)
+            img_data = BytesIO(response.content)
+            my_image = ctk.CTkImage(light_image=Image.open(img_data), dark_image=Image.open(img_data), size=(95, 95))
+            frame1 = ctk.CTkFrame(frame, corner_radius=10)
+            button = ctk.CTkButton(frame1, text="",image=my_image, command=function).pack(padx=5, pady=5)
+            frame1.place(x=px, y=py)
+
+        progress_bar = ctk.CTkProgressBar(frame, width=300)
+        progress_bar.pack(side='bottom', pady=20)
+        status_label = ctk.CTkLabel(frame, text="Téléchargement en cours...")
+        status_label.pack(side='bottom', pady=25)
+        progress_bar.set(0)
+        status_label.configure(text="Aucun telechargement en cours")
+        
+        # vencord
+        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277637768151044126/dg8ey1s-36aa0963-55e6-401e-9811-1382b5b4af8f.png?ex=66cde465&is=66cc92e5&hm=2b7830f1af69073fae121ca252db6d394cc6944769082f4addd9ffdbbb6030dc&"
+        FrameAndButtonImgPlacer(frame, urlimg, 10, 10, lambda: manage_download_process("http://192.168.1.87:8151/api/public/dl/SVdjYoSc/VencordInstaller.exe", "VencordInstaller.exe", progress_bar, status_label, frame))
+        # winrar
+        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277642131833487452/WinRAR_Logo_2018.webp?ex=66cde875&is=66cc96f5&hm=111e9b93bc80ba7fdfb4255db3f1051d2ad595d2a35d301f11efa14bfce47ba4&"
+        FrameAndButtonImgPlacer(frame, urlimg, 170, 10, lambda: manage_download_process("http://192.168.1.87:8151/api/public/dl/p3sAJtzo/winrar-x64-701fr.exe", "winrar-x64-701fr.exe", progress_bar, status_label, frame))
+        # bloatbox
+        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277654257100652647/bloatbox.png?ex=66cdf3c0&is=66cca240&hm=dc61a78c218c20f260f987b0bd93c0fcc222c21ee1e43058a3b50659f796984b&"
+        FrameAndButtonImgPlacer(frame, urlimg, 330, 10, lambda: manage_download_process("http://192.168.1.87:8151/api/public/dl/7CYc240X/bloatbox-0.20.0-installer_qP3lR-1.exe", "bloatbox-0.20.0-installer_qP3lR-1.exe", progress_bar, status_label, frame))
+
+        
         return frame
 
     #repair
@@ -253,4 +322,34 @@ class main:
         label.pack(padx=20, pady=20)
         return frame
 
-main()
+if __name__ == "__main__":
+    if os.path.isfile("test.txt"):
+        main()
+    else:
+        print("test.txt not found")
+        options = ["english", "french"]
+
+        def submit(selected_option, window):
+            #global selected_value
+            #selected_value = selected_option
+            txt = open("test.txt", "w")
+            txt.write(selected_option)
+            txt.close()
+            window.destroy()
+            main()
+
+        window = ctk.CTk()
+        window.title("Preference")
+        window.geometry("300x200")
+
+        label = ctk.CTkLabel(window, text="Select an languages:")
+        label.pack(pady=10)
+
+        combobox = ctk.CTkComboBox(window, values=options)
+        combobox.pack(pady=10)
+
+        button = ctk.CTkButton(window, text="Submit", command=lambda : submit(combobox.get(), window))
+        button.pack(pady=10)
+
+        window.mainloop()
+        
