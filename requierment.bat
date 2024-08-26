@@ -31,3 +31,4 @@ pip install Nuitka
 cls
 echo "Tout a ete installe et mis a jour"
 pause
+exit
