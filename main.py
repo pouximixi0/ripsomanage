@@ -273,8 +273,12 @@ class main:
 
         def FrameAndButtonImgPlacer(master, url, px, py, function, message):
             response = requests.get(url)
-            img_data = BytesIO(response.content)
-            my_image = ctk.CTkImage(light_image=Image.open(img_data), dark_image=Image.open(img_data), size=(95, 95))
+            response = requests.get(url)
+            if response.status_code == 200:
+                img_data = BytesIO(response.content)
+                my_image = ctk.CTkImage(light_image=Image.open(img_data), dark_image=Image.open(img_data), size=(95, 95))
+            else:
+                print("Failed to retrieve image. Status code:", response.status_code)
             frame1 = ctk.CTkFrame(frame, corner_radius=10)
             button = ctk.CTkButton(frame1, text="",image=my_image, command=function)
             button.pack(padx=5, pady=5)
@@ -289,40 +293,40 @@ class main:
         status_label.configure(text="Aucun telechargement en cours")
         
         # vencord
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277637768151044126/dg8ey1s-36aa0963-55e6-401e-9811-1382b5b4af8f.png?ex=66cde465&is=66cc92e5&hm=2b7830f1af69073fae121ca252db6d394cc6944769082f4addd9ffdbbb6030dc&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/9ztGDXqt?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 10, 10, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/SVdjYoSc/VencordInstaller.exe", "VencordInstaller.exe", progress_bar, status_label, frame), "Vencord: Outil pour gérer et améliorer les serveurs Discord\n avec des fonctionnalités de personnalisation et de modération avancées.")
         # winrar
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277642131833487452/WinRAR_Logo_2018.webp?ex=66cde875&is=66cc96f5&hm=111e9b93bc80ba7fdfb4255db3f1051d2ad595d2a35d301f11efa14bfce47ba4&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/Yo17FY0h?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 170, 10, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/p3sAJtzo/winrar-x64-701fr.exe", "winrar-x64-701fr.exe", progress_bar, status_label, frame), "WinRAR: Logiciel de compression et décompression de fichiers\n offrant un support pour les formats RAR et ZIP.")
         # bloatbox
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277654257100652647/bloatbox.png?ex=66cdf3c0&is=66cca240&hm=dc61a78c218c20f260f987b0bd93c0fcc222c21ee1e43058a3b50659f796984b&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/E2IsuFMN?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 330, 10, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/7CYc240X/bloatbox-0.20.0-installer_qP3lR-1.exe", "bloatbox-0.20.0-installer_qP3lR-1.exe", progress_bar, status_label, frame), "Bloatbox: Outil pour désinstaller les logiciels préinstallés\n et réduire le \"bloatware\" sur Windows.")
         # quicklook
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277914621570715648/78271956-22f92780-750d-11ea-8efb-4007df512cf5-removebg-preview.png?ex=66cee63c&is=66cd94bc&hm=247beedab24cb300f9f0f090e7f7b33e648108cce56f90214b0153c83f49e5a2&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/IZEV6LhC?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 490, 10, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/9trpICdk/QuickLook-Installer.exe", "QuickLook-Installer.exe", progress_bar, status_label, frame), "QuickLook: Application permettant de prévisualiser les fichiers\n rapidement à l'aide d'une interface.")
-        # quicklook
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277916762414911549/WinDirStat_Logo_color.svg.png?ex=66cee83a&is=66cd96ba&hm=dcf892f770ce15cd9d1d27010157c76a6f826f85f98a7b9529b99eb9c7e8d358&"
+        # windirstat
+        urlimg = "http://176.135.170.70:8151/api/public/dl/duEdfYVA?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 650, 10, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/wCx_PJiC/windirstat1_1_2_setup.exe", "windirstat1_1_2_setup.exe", progress_bar, status_label, frame), "WinDirStat: Outil pour visualiser l'espace disque utilisé par\n les fichiers et dossiers sur un disque dur.")
         # diskdrill
-        urlimg = "https://media.discordapp.net/attachments/1276856395056025661/1277918207721738261/image.png?ex=66cee993&is=66cd9813&hm=e85aa50dc73e0ed2cc023e6baaab6a10e5bd43a69554ce2032657e3407c4ecb1&=&format=webp&quality=lossless&width=437&height=437"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/CECs5Jbv?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 10, 130, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/ep95lf-Z/disk-drill-win.exe", "disk-drill-win.exe", progress_bar, status_label, frame), "Disk Drill: Outil de récupération de données pour restaurer les fichiers\n supprimés ou perdus sur les disques durs et autres supports de stockage.")
         # shutup win 10
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277919581532459049/shutup.webp?ex=66ceeada&is=66cd995a&hm=8e3b885502499a71dc95fd65b809c9c4e3f065ba1c2439affa66a2a95c417d8f&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/lleiab8B?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 170, 130, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/6hePfQrr/OOSU10.exe", "OOSU10.exe", progress_bar, status_label, frame), "Shutup10: Application pour désactiver les paramètres\n de confidentialité indésirables dans Windows 10.")
         # powertoys
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277920948875431946/microsoft-powertoys-for-windows220-220.png?ex=66ceec20&is=66cd9aa0&hm=5c71226afb060b47520c6311a8eb69bc65fe48582e09748de3c66b07ec633799&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/b3m2Q5OE?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 330, 130, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/7vX-_C4s/PowerToysUserSetup-0.83.0-x64.exe", "PowerToysUserSetup-0.83.0-x64.exe", progress_bar, status_label, frame), "PowerToys: Suite d'outils pour améliorer la productivité sur Windows,\n incluant des fonctionnalités comme FancyZones et PowerRename.")
         # encrypto
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277921767767150602/1200x630bb.png?ex=66ceece4&is=66cd9b64&hm=b667e0fdee071cf334f1bd9580471c7117fcb970af9b97f4de96c0643291d8ac&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/xAoHqFrC?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 490, 130, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/j8pEt8gF/EncryptoforWin.exe", "EncryptoforWin.exe", progress_bar, status_label, frame), "Encrypto: Logiciel de chiffrement pour sécuriser les fichiers\n en les cryptant avant leur envoi ou stockage.")
         # speccy
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277924097703149659/Speccy_23586.webp?ex=66ceef0f&is=66cd9d8f&hm=c574f065f370fa98473db349ca843582d4073a81875948ec5159bf0176fd8182&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/iaRfQK6G?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 650, 130, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/MCQAuZj-/speccy_cgRGb-1.exe", "speccy_cgRGb-1.exe", progress_bar, status_label, frame), "Speccy: Outil pour afficher des informations détaillées sur le matériel\n de votre PC, y compris la température et les spécifications du système.")
         # screentoGif
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277925066855940157/screentogif-RO7p7c.png?ex=66ceeff6&is=66cd9e76&hm=27a39a285cab90fd4c3689b41dc8f5094f4fa52e963f68ebaf6f685e64481d64&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/qTSk_LUQ?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 10, 250, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/Y9hX4XDF/ScreenToGif.2.41.Setup.x64.msi", "ScreenToGif.2.41.Setup.x64.msi", progress_bar, status_label, frame), "ScreenToGif: Application pour capturer et convertir l'écran en GIFs animés\n pour des présentations ou des démonstrations.")
         # everything
-        urlimg = "https://cdn.discordapp.com/attachments/1276856395056025661/1277926730925084683/dbc1fc0d2b9e238f5863eb19ef214629.png?ex=66cef183&is=66cda003&hm=99222e70e4626bb236d38bf6491eefc9f3fa4b8df58fb24b722d9a63ac3a22ab&"
+        urlimg = "http://176.135.170.70:8151/api/public/dl/Qo2Xa1i9?inline=true"
         FrameAndButtonImgPlacer(frame, urlimg, 170, 250, lambda: manage_download_process("http://176.135.170.70:8151/api/public/dl/gdqUmTYy/Everything-1.4.1.1026.x86-Setup.exe", "Everything-1.4.1.1026.x86-Setup.exe", progress_bar, status_label, frame), "Everything: Outil de recherche ultrarapide pour trouver des\n fichiers et dossiers sur un PC en temps réel.")
         
         
